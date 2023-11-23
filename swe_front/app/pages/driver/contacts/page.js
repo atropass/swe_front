@@ -1,6 +1,6 @@
 // pages/contacts.js
 import React from 'react';
-import Header from '../../components/Header'; // Adjust the import path as needed
+import Header from '../../../components/HeaderDriver'; // Adjust the import path as needed
 
 const Contacts = () => {
   return (

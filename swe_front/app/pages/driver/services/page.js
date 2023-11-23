@@ -1,9 +1,9 @@
 'use client'
 // pages/services/index.js
 import React, { useState } from 'react';
-import Header from '../../components/Header'; // Adjust the import path as needed
-import MyHistory from '../../components/MyHistory'; // Adjust the import path as needed
-import MyTasks from '../../components/MyTasks'; // Adjust the import path as needed
+import Header from '../../../components/HeaderDriver'; // Adjust the import path as needed
+import MyHistory from '../../../components/DriverHistory'; // Adjust the import path as needed
+import MyTasks from '../../../components/DriverTasks'; // Adjust the import path as needed
 
 const Services = () => {
   const [activeService, setActiveService] = useState('history'); // 'history' or 'tasks'

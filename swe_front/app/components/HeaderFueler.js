@@ -18,11 +18,7 @@ const Header = () => {
                 </button>
             </div>
             <nav className="flex space-x-6 mr-6 text-black">
-                <Link href="/pages/profile" className={navItemClass}>PROFILE</Link>
-                <Link href="/pages/services" className={navItemClass}>SERVICES</Link>
-                <Link href="/pages/about" className={navItemClass}>ABOUT US</Link>
-                <Link href="/pages/contacts" className={navItemClass}>CONTACTS</Link>
-                <Link href="/pages/appointment" className={navItemClass}>APPOINTMENT</Link>
+                <Link href="/pages/fueler/services" className={navItemClass}>SERVICES</Link>
                 <button className="bg-red-500 rounded px-6 py-2 text-white focus:outline-none hover:bg-red-600 transition-colors">
                     Log Out
                 </button>

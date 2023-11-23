@@ -1,6 +1,6 @@
 // pages/profile.js
-import AppointmentForm from '../../components/AppointmentForm';
-import Header from '../../components/Header'; // If you have a header component
+import AppointmentForm from '../../../components/AppointmentForm';
+import Header from '../../../components/HeaderDriver'; // If you have a header component
 
 const Appointment = () => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../components/Header'; // Adjust the import path as needed
+import Header from '../../../components/HeaderDriver'; // Adjust the import path as needed
 import Image from 'next/image'
 const About = () => {
   return (
