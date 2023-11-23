@@ -10,19 +10,16 @@ const Header = () => {
         <div className="container mx-auto flex items-center justify-between">
             <div className="flex">
                 <input 
-                    className="py-2 text-black pl-4 pr-3 w-72 rounded-l-full focus:outline-none border border-r-0 border-gray-300" 
+                    className="py-2 text-black  pl-4 pr-3 w-72 rounded-l-full focus:outline-none border border-r-0 border-gray-300" 
                     placeholder="Search driver/Maintenance Person..."
                 />
-                <button className="bg-red-500 rounded-r-full text-black px-6 py-2 focus:outline-none hover:bg-red-600 transition-colors">
+                <button className="bg-red-500 rounded-r-full text-white px-6 py-2 focus:outline-none hover:bg-red-600 transition-colors">
                     Search
                 </button>
             </div>
             <nav className="flex space-x-6 mr-6 text-black">
-                <Link href="/pages/driver/profile" className={navItemClass}>PROFILE</Link>
-                <Link href="/pages/driver/services" className={navItemClass}>SERVICES</Link>
-                <Link href="/pages/driver/about" className={navItemClass}>ABOUT US</Link>
-                <Link href="/pages/driver/contacts" className={navItemClass}>CONTACTS</Link>
-                <Link href="/pages/driver/appointment" className={navItemClass}>APPOINTMENT</Link>
+                <Link href="/pages/maintenance/services" className={navItemClass}>SERVICES</Link>
+
                 <button className="bg-red-500 rounded px-6 py-2 text-white focus:outline-none hover:bg-red-600 transition-colors">
                     Log Out
                 </button>

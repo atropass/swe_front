@@ -10,7 +10,7 @@ const Header = () => {
         <div className="container mx-auto flex items-center justify-between">
             <div className="flex">
                 <input 
-                    className="py-2 pl-4 pr-3 w-72 rounded-l-full focus:outline-none border border-r-0 border-gray-300" 
+                    className="py-2 text-black  pl-4 pr-3 w-72 rounded-l-full focus:outline-none border border-r-0 border-gray-300" 
                     placeholder="Search driver/Maintenance Person..."
                 />
                 <button className="bg-red-500 rounded-r-full text-white px-6 py-2 focus:outline-none hover:bg-red-600 transition-colors">
@@ -19,6 +19,7 @@ const Header = () => {
             </div>
             <nav className="flex space-x-6 mr-6 text-black">
                 <Link href="/pages/fueler/services" className={navItemClass}>SERVICES</Link>
+
                 <button className="bg-red-500 rounded px-6 py-2 text-white focus:outline-none hover:bg-red-600 transition-colors">
                     Log Out
                 </button>
