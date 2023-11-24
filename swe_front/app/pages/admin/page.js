@@ -6,6 +6,7 @@ import Drivers from "@/app/components/AdminDrivers";
 import Maintenance from "@/app/components/AdminMaintenance";
 import Fuelers from "@/app/components/AdminFuelers";
 import Tasks from "@/app/components/AdminTasks";
+import MapContainer from "@/app/components/MapContainer";
 import { useState } from "react";
 
 export default function Page(){
@@ -51,6 +52,7 @@ export default function Page(){
                 <Sidebar sections={sidebarSections} onCategorySelect={onCategorySelect} activeService={category}/>
                 {renderMainContent()}
             </div>
+            <MapContainer vehicles={[{id: 1, latitude: 51.09059758568362, longitude: 71.39845426306142 },]}/>
         </>
     );
 }
