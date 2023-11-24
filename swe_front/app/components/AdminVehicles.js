@@ -58,6 +58,14 @@ export default function Vehicles(){
             driversAssigned: "Drivers Assigned 1"
         },
     ]
+    const columns = [
+        "Gov.Num",
+        "Car",
+        "Car Mileage",
+        "Driver",
+        "Drivers Assigned",
+        "Actions"
+    ]
     return (
         <div className="flex-1 ml-4 bg-gray-100">
             {/* Action Buttons */}
@@ -69,7 +77,7 @@ export default function Vehicles(){
                 Add Vehicle
                 </button>
             </div>
-            <Table vehicles={vehicles}></Table>
+            <Table columns={columns} entries={vehicles}></Table>
         </div>
     )
 }
