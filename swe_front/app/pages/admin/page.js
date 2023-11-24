@@ -52,7 +52,6 @@ export default function Page(){
                 <Sidebar sections={sidebarSections} onCategorySelect={onCategorySelect} activeService={category}/>
                 {renderMainContent()}
             </div>
-            <MapContainer vehicles={[{id: 1, latitude: 51.09059758568362, longitude: 71.39845426306142 },]}/>
         </>
     );
 }

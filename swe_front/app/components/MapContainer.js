@@ -52,7 +52,6 @@ const MapContainer = ({vehicles}) => {
     }, [map, directions]);
 
     return (
-        <LoadScript googleMapsApiKey="AIzaSyChZt9VZxEiW6N0EOQSBsFwGJmry7iWIoQ">
         <GoogleMap mapContainerStyle={mapStyles} zoom={8} center={defaultCenter} onLoad={onLoad}>
             {vehicles.map((vehicle) => (
             <Marker
@@ -65,7 +64,6 @@ const MapContainer = ({vehicles}) => {
             <Marker position={end} />
             {directions && <DirectionsRenderer directions={directions} />}
         </GoogleMap>
-        </LoadScript>
     );
 }
 
