@@ -12,7 +12,7 @@ defmodule SweBack.Repo.Migrations.CreateDrivers do
       add :phone_number, :string
       add :email, :string
       add :driving_license_code, :string
-      add :assigned_vehicle_id, references(:vehicles, on_delete: :nothing, type: :binary_id)
+      add :vehicle_id, references(:vehicles, on_delete: :nothing, type: :binary_id)
 
       timestamps(updated_at: false)
     end

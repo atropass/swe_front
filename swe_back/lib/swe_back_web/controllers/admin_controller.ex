@@ -2,29 +2,9 @@ defmodule SweBackWeb.AdminController do
   use SweBackWeb, :controller
 
   alias SweBack.Admins
-  #alias SweBack.Admins.Admin
+  alias SweBack.Admins.Admin
 
   action_fallback SweBackWeb.FallbackController
-
-
-   # POST /api/admins/create
-  def create(conn, %{"admin" => admin_params}) do
-    case Admins.create_admin(admin_params) do
-      {:ok, admin} ->
-        conn
-        |> put_status(:created)
-        |> json(%{admin: admin})
-      {:error, %Ecto.Changeset{errors: errors}} when is_map_key(errors, :email) ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> json(%{error: "Email has already been taken"})
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> json(%{error: changeset})
-    end
-  end
-
 
   # GET /api/admins/read/:id
   def show(conn, %{"id" => id}) do
@@ -77,18 +57,18 @@ defmodule SweBackWeb.AdminController do
         end
     end
   end
-  # def index(conn, _params) do
-  #   admins = Admins.list_admins()
-  #   render(conn, :index, admins: admins)
-  # end
+  def index(conn, _params) do
+    admins = Admins.list_admins()
+    render(conn, :index, admins: admins)
+  end
 
-  # def create(conn, %{"admin" => admin_params}) do
-  #   with {:ok, %Admin{} = admin} <- Admins.create_admin(admin_params) do
-  #     conn
-  #     |> put_status(:created)
-  #     |> render(:show, admin: admin)
-  #   end
-  # end
+  def create(conn, %{"admin" => admin_params}) do
+    with {:ok, %Admin{} = admin} <- Admins.create_admin(admin_params) do
+      conn
+      |> put_status(:created)
+      |> render(:show, admin: admin)
+    end
+  end
 
   # def show(conn, %{"id" => id}) do
   #   admin = Admins.get_admin!(id)

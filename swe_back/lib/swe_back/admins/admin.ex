@@ -1,7 +1,7 @@
 defmodule SweBack.Admins.Admin do
   use Ecto.Schema
   import Ecto.Changeset
-  #@derive {Jason.Encoder, only: [:id, :address, :email, :middle_name, :name, :phone_number, :surname, :inserted_at]}
+  @derive {Jason.Encoder, only: [:id, :address, :email, :middle_name, :name, :phone_number, :surname, :inserted_at]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "admins" do

@@ -21,8 +21,8 @@ defmodule SweBack.Drivers.Driver do
   @doc false
   def changeset(driver, attrs) do
     driver
-    |> cast(attrs, [:government_id, :name, :surname, :middle_name, :address, :phone_number, :email, :driving_license_code])
-    |> validate_required([:government_id, :name, :surname, :middle_name, :address, :phone_number, :email, :driving_license_code])
+    |> cast(attrs, [:government_id, :name, :surname, :middle_name, :address, :phone_number, :email, :driving_license_code, :vehicle_id])
+    |> validate_required([:government_id, :name, :surname, :middle_name, :address, :phone_number, :email, :driving_license_code, :vehicle_id])
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
     |> unique_constraint(:email)

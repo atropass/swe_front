@@ -25,7 +25,8 @@ defmodule SweBackWeb.DriverJSON do
       address: driver.address,
       phone_number: driver.phone_number,
       email: driver.email,
-      driving_license_code: driver.driving_license_code
+      driving_license_code: driver.driving_license_code,
+      vehicle_id: driver.vehicle_id
     }
   end
 end

@@ -25,6 +25,7 @@ defmodule SweBackWeb.Router do
     #post("/send", EmailController, :send_email)
     post "/appointments", EmailController, :send_appointment
     scope "/admin" do
+      get("/index", AdminController, :index)
       post("/create", AdminController, :create)
       get("/read/:id", AdminController, :show)
       put("/update/:id", AdminController, :update)
@@ -32,6 +33,7 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/driver" do
+      get("/index", DriverController, :index)
       post("/create", DriverController, :create)
       get("/read/:id", DriverController, :show)
       put("/update/:id", DriverController, :update)
@@ -39,6 +41,7 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/maintenance" do
+      get("/index", MaintenancePersonController, :index)
       post("/create", MaintenancePersonController, :create)
       get("/read/:id", MaintenancePersonController, :show)
       put("/update/:id", MaintenancePersonController, :update)
@@ -46,6 +49,7 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/fueling" do
+      get("/index", FuelingPersonController, :index)
       post("/create", FuelingPersonController, :create)
       get("/read/:id", FuelingPersonController, :show)
       put("/update/:id", FuelingPersonController, :update)
@@ -53,6 +57,7 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/user" do
+      get("/index", UserController, :index)
       post("/create", UserController, :create)
       get("/read/:id", UserController, :show)
       put("/update/:id", UserController, :update)
@@ -60,6 +65,7 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/vehicle" do
+      get("/index", VehicleController, :index)
       post("/create", VehicleController, :create)
       get("/read/:id", VehicleController, :show)
       put("/update/:id", VehicleController, :update)
@@ -67,6 +73,7 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/maintenance_task" do
+      get("/index", DriverTaskController, :index)
       post("/create", DriverTaskController, :create)
       get("/read/:id", DriverTaskController, :show)
       put("/update/:id", DriverTaskController, :update)
@@ -74,6 +81,7 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/fueling_task" do
+      get("/index", FuelingTaskController, :index)
       post("/create", FuelingTaskController, :create)
       get("/read/:id", FuelingTaskController, :show)
       put("/update/:id", FuelingTaskController, :update)
@@ -81,6 +89,7 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/driver_task" do
+      get("/index", DriverTaskController, :index)
       post("/create", DriverTaskController, :create)
       get("/read/:id", DriverTaskController, :show)
       put("/update/:id", DriverTaskController, :update)
