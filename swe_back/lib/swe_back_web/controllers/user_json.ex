@@ -19,7 +19,11 @@ defmodule SweBackWeb.UserJSON do
     %{
       id: user.id,
       username: user.username,
-      password_hash: user.password_hash
+      password_hash: user.password_hash,
+      admin_id: user.admin_id,
+      maintenance_id: user.maintenance_id,
+      fuelingperson_id: user.fuelingperson_id,
+      driver_id: user.driver_id
     }
   end
 end
