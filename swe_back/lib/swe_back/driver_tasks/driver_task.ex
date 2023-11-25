@@ -19,7 +19,7 @@ defmodule SweBack.DriverTasks.DriverTask do
   @doc false
   def changeset(driver_task, attrs) do
     driver_task
-    |> cast(attrs, [:start_time, :end_time, :status, :description, :route_information])
-    |> validate_required([:start_time, :end_time, :status, :description, :route_information])
+    |> cast(attrs, [:start_time, :end_time, :status, :description, :route_information, :driver_id, :vehicle_id])
+    |> validate_required([:start_time, :end_time, :status, :description, :route_information, :driver_id, :vehicle_id])
   end
 end

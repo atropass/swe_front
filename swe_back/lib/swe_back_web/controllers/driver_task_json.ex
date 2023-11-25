@@ -22,7 +22,9 @@ defmodule SweBackWeb.DriverTaskJSON do
       end_time: driver_task.end_time,
       status: driver_task.status,
       description: driver_task.description,
-      route_information: driver_task.route_information
+      route_information: driver_task.route_information,
+      driver_id: driver_task.driver_id,
+      vehicle_id: driver_task.vehicle_id
     }
   end
 end

@@ -19,7 +19,7 @@ defmodule SweBack.FuelingTasks.FuelingTask do
   @doc false
   def changeset(fueling_task, attrs) do
     fueling_task
-    |> cast(attrs, [:date_and_time, :fuel_quantity, :total_cost, :gas_station_name, :image_links])
-    |> validate_required([:date_and_time, :fuel_quantity, :total_cost, :gas_station_name, :image_links])
+    |> cast(attrs, [:date_and_time, :fuel_quantity, :total_cost, :gas_station_name, :image_links, :driver_id, :vehicle_id, :fueling_person_id])
+    |> validate_required([:date_and_time, :fuel_quantity, :total_cost, :gas_station_name, :image_links, :driver_id, :vehicle_id, :fueling_person_id])
   end
 end

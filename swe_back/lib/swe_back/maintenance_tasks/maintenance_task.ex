@@ -19,7 +19,7 @@ defmodule SweBack.MaintenanceTasks.MaintenanceTask do
   @doc false
   def changeset(maintenance_task, attrs) do
     maintenance_task
-    |> cast(attrs, [:description, :status, :scheduled_date, :completion_date, :maintenance_cost])
-    |> validate_required([:description, :status, :scheduled_date, :completion_date, :maintenance_cost])
+    |> cast(attrs, [:description, :status, :scheduled_date, :completion_date, :maintenance_cost, :maintenance_person_id, :vehicle_id])
+    |> validate_required([:description, :status, :scheduled_date, :completion_date, :maintenance_cost, :maintenance_person_id, :vehicle_id])
   end
 end

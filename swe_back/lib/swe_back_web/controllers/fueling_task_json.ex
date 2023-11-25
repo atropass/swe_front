@@ -22,7 +22,10 @@ defmodule SweBackWeb.FuelingTaskJSON do
       fuel_quantity: fueling_task.fuel_quantity,
       total_cost: fueling_task.total_cost,
       gas_station_name: fueling_task.gas_station_name,
-      image_links: fueling_task.image_links
+      image_links: fueling_task.image_links,
+      driver_id: fueling_task.driver_id,
+      vehicle_id: fueling_task.vehicle_id,
+      fueling_person_id: fueling_task.fueling_person_id
     }
   end
 end

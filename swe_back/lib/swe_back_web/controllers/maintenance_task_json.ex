@@ -22,7 +22,9 @@ defmodule SweBackWeb.MaintenanceTaskJSON do
       status: maintenance_task.status,
       scheduled_date: maintenance_task.scheduled_date,
       completion_date: maintenance_task.completion_date,
-      maintenance_cost: maintenance_task.maintenance_cost
+      maintenance_cost: maintenance_task.maintenance_cost,
+      maintenance_person_id: maintenance_task.maintenance_person_id,
+      vehicle_id: maintenance_task.vehicle_id
     }
   end
 end
