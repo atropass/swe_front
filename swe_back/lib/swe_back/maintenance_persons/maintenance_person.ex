@@ -4,7 +4,7 @@ defmodule SweBack.MaintenancePersons.MaintenancePerson do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  #@derive {Jason.Encoder, only: [:id, :address, :email, :middle_name, :name, :phone_number, :surname, :inserted_at]}
+  @derive {Jason.Encoder, only: [:id, :address, :email, :middle_name, :name, :phone_number, :surname, :inserted_at]}
   schema "maintenance_persons" do
     field :address, :string
     field :email, :string
@@ -12,7 +12,7 @@ defmodule SweBack.MaintenancePersons.MaintenancePerson do
     field :name, :string
     field :phone_number, :string
     field :surname, :string
-    has_one :user, SweBack.Users.User, foreign_key: :maintenance_person_id
+    has_one :user, SweBack.Users.User, foreign_key: :maintenance_id
     has_many :maintenance_tasks, SweBack.MaintenanceTasks.MaintenanceTask
     timestamps(updated_at: false)
   end

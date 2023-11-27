@@ -73,11 +73,11 @@ defmodule SweBackWeb.Router do
     end
 
     scope "/maintenance_task" do
-      get("/index", DriverTaskController, :index)
-      post("/create", DriverTaskController, :create)
-      get("/read/:id", DriverTaskController, :show)
-      put("/update/:id", DriverTaskController, :update)
-      delete("/delete/:id", DriverTaskController, :delete)
+      get("/index", MaintenanceTaskController, :index)
+      post("/create", MaintenanceTaskController, :create)
+      get("/read/:id", MaintenanceTaskController, :show)
+      put("/update/:id", MaintenanceTaskController, :update)
+      delete("/delete/:id", MaintenanceTaskController, :delete)
     end
 
     scope "/fueling_task" do

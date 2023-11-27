@@ -11,6 +11,15 @@ defmodule SweBackWeb.MaintenancePersonController do
     render(conn, :index, maintenance_persons: maintenance_persons)
   end
 
+  # def create(conn, %{"maintenance_person" => maintenance_person_params}) do
+  #   with {:ok, %MaintenancePerson{} = admin} <- MaintenancePersons.create_maintenance_person(maintenance_person_params) do
+  #     conn
+  #     |> put_status(:created)
+  #     |> render(:show, maintenance_person: maintenance_person)
+  #   end
+  # end
+
+
   def create(conn, %{"maintenance_person" => maintenance_person_params}) do
     case MaintenancePersons.create_maintenance_person(maintenance_person_params) do
       {:ok, maintenance_person} ->
@@ -18,11 +27,31 @@ defmodule SweBackWeb.MaintenancePersonController do
         |> put_status(:created)
         |> json(%{maintenance_person: maintenance_person})
       {:error, changeset} ->
+        # Extract error messages from changeset and send as JSON
+        errors = Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
+          Enum.reduce(opts, msg, fn {key, value}, acc ->
+            String.replace(acc, "%{#{key}}", to_string(value))
+          end)
+        end)
         conn
         |> put_status(:unprocessable_entity)
-        |> json(%{error: changeset})
+        |> json(%{errors: errors})
     end
   end
+
+
+  # def create(conn, %{"maintenance_person" => maintenance_person_params}) do
+  #   case MaintenancePersons.create_maintenance_person(maintenance_person_params) do
+  #     {:ok, maintenance_person} ->
+  #       conn
+  #       |> put_status(:created)
+  #       |> json(%{maintenance_person: maintenance_person})
+  #     {:error, changeset} ->
+  #       conn
+  #       |> put_status(:unprocessable_entity)
+  #       |> json(%{error: changeset})
+  #   end
+  # end
 
   def show(conn, %{"id" => id}) do
     maintenance_person = MaintenancePersons.get_maintenance_person!(id)
