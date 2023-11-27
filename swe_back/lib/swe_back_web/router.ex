@@ -17,7 +17,7 @@ defmodule SweBackWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug CORSPlug, origin: ["http://localhost:3000"]
+    plug CORSPlug
   end
 
   scope "/api", SweBackWeb do
