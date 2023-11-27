@@ -11,7 +11,17 @@ defmodule SweBackWeb.Endpoint do
     same_site: "Lax"
   ]
 
-  plug CORSPlug
+  plug CORSPlug,
+    origin: ["http://localhost:4000", "http://localhost:3000"],
+    methods: ["*"],
+    headers: ["*"],
+    expose_headers: [
+      "X-Request-Id",
+      "X-Apig-Latency"
+    ],
+    max_age: 172_800,
+    credentials: true
+
   plug SweBackWeb.Router
 
 

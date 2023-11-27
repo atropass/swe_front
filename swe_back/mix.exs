@@ -48,7 +48,7 @@ defmodule SweBack.MixProject do
       {:bamboo_smtp, "~> 4.2.2"},
       {:mime, "~> 1.4"},
       {:poison, "~> 4.0"},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 3.0"}
 
     ]
   end

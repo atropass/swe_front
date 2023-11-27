@@ -95,6 +95,10 @@ defmodule SweBackWeb.Router do
       get("/read/:id", DriverTaskController, :show)
       put("/update/:id", DriverTaskController, :update)
       delete("/delete/:id", DriverTaskController, :delete)
+      resources "/articles", DriverTaskController
+      options   "/articles", DriverTaskController, :options
+      options   "/articles/:id", DriverTaskController, :options
     end
   end
+
 end
