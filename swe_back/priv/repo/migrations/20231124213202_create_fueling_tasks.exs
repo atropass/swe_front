@@ -9,6 +9,7 @@ defmodule SweBack.Repo.Migrations.CreateFuelingTasks do
       add :total_cost, :decimal
       add :gas_station_name, :string
       add :image_links, :text
+      add :status, :string
       add :fueling_person_id, references(:fueling_persons, on_delete: :nothing, type: :binary_id)
       add :vehicle_id, references(:vehicles, on_delete: :nothing, type: :binary_id)
       add :driver_id, references(:drivers, on_delete: :nothing, type: :binary_id)

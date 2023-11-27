@@ -10,6 +10,7 @@ defmodule SweBack.FuelingTasks.FuelingTask do
     field :gas_station_name, :string
     field :image_links, :string
     field :total_cost, :decimal
+    field :status, :string
     belongs_to :driver, SweBack.Drivers.Driver, foreign_key: :driver_id
     belongs_to :vehicle, SweBack.Vehicles.Vehicle, foreign_key: :vehicle_id
     belongs_to :fueling_person, SweBack.FuelingPersons.FuelingPerson, foreign_key: :fueling_person_id
@@ -19,7 +20,7 @@ defmodule SweBack.FuelingTasks.FuelingTask do
   @doc false
   def changeset(fueling_task, attrs) do
     fueling_task
-    |> cast(attrs, [:date_and_time, :fuel_quantity, :total_cost, :gas_station_name, :image_links, :driver_id, :vehicle_id, :fueling_person_id])
-    |> validate_required([:date_and_time, :fuel_quantity, :total_cost, :gas_station_name, :image_links, :driver_id, :vehicle_id, :fueling_person_id])
+    |> cast(attrs, [:date_and_time, :fuel_quantity, :total_cost, :gas_station_name, :image_links, :driver_id, :vehicle_id, :fueling_person_id,:status])
+    |> validate_required([:date_and_time, :fuel_quantity, :total_cost, :gas_station_name, :image_links, :driver_id, :vehicle_id, :fueling_person_id, :status])
   end
 end
