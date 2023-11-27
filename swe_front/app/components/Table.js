@@ -12,8 +12,13 @@ export default function Table({columns, entries, people = []}){
     }
 
     const getRole = (entry) => {
-        return entry['maintenance_person_id'] ? 'Maintenance' : entry['route_information'] ? 'Driving' : 'Fueling'
+        return entry['fueling_person_id'] ? 'Fueling' : entry['route_information'] ? 'Driving' : 'Maintenance'
     }
+
+    const foo = {
+
+    }
+
     return (
         <div className="container mx-auto mt-4">
             <div className="overflow-x-auto">
@@ -33,7 +38,7 @@ export default function Table({columns, entries, people = []}){
                         {columns.map((key, index) => (
                             <td key={index} className={key === "status" ? entry[key] === "In progress" ? "px-4 py-2 whitespace-nowrap text-sm text-yellow-500" : entry[key] === "Done" ? "px-4 py-2 whitespace-nowrap text-sm text-green-500" : "px-4 py-2 whitespace-nowrap text-sm text-red-500" : "px-4 py-2 whitespace-nowrap text-sm text-gray-500"}>
                                 {
-                                    key === 'name' ? getPersonName(entry['driver_id'] || entry['fueling_person_id'] || entry['maintenance_person_id']) : key === 'role' ? getRole(entry) : key === 'contact info' ? getPersonNumber(entry['driver_id'] || entry['fueling_person_id'] || entry['maintenance_person_id']) : entry[key]
+                                    key === 'name' ? getPersonName(entry['maintenance_person_id'] || entry['fueling_person_id'] || entry['driver_id']) : key === 'role' ? getRole(entry) : key === 'contact info' ? getPersonNumber(entry['maintenance_person_id'] || entry['fueling_person_id'] || entry['driver_id']) : entry[key]
                                 }
                             </td>
                         ))}
