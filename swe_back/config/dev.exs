@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :swe_back, SweBack.Repo,
-  username: "postgres",
-  password: "123",
+  username: "swe_db",
+  password: "pass",
   hostname: "localhost",
   database: "swe_db_dev",
   stacktrace: true,

@@ -11,7 +11,7 @@ defmodule SweBack.FuelingPersons.FuelingPerson do
     field :name, :string
     field :phone_number, :string
     field :surname, :string
-    has_one :user, SweBack.Users.User, foreign_key: :fueling_person_id
+    has_one :user, SweBack.Users.User, foreign_key: :fuelingperson_id
     timestamps(updated_at: false)
   end
 
