@@ -1,4 +1,4 @@
-export default function Table({columns, entries, people = []}){
+export default function Table({columns, entries, people = [], vehicles = []}){
     const getPersonName = (id) => {
         const driver = people.find(driver => driver.id === id);
         console.log(driver)
@@ -15,8 +15,14 @@ export default function Table({columns, entries, people = []}){
         return entry['fueling_person_id'] ? 'Fueling' : entry['route_information'] ? 'Driving' : 'Maintenance'
     }
 
-    const foo = {
+    const getDriverName = (id) => {
+        const driver = people.find(driver => driver.vehicle_id === id);
+        return driver ? driver.name + ' ' + driver.surname : '';
+    }
 
+    const getCarNumber = (id) => {
+        const vehicle = vehicles.find(vehicle => vehicle.id === id);
+        return vehicle ? vehicle.license_plate : '';
     }
 
     return (
@@ -38,7 +44,8 @@ export default function Table({columns, entries, people = []}){
                         {columns.map((key, index) => (
                             <td key={index} className={key === "status" ? entry[key] === "In progress" ? "px-4 py-2 whitespace-nowrap text-sm text-yellow-500" : entry[key] === "Done" ? "px-4 py-2 whitespace-nowrap text-sm text-green-500" : "px-4 py-2 whitespace-nowrap text-sm text-red-500" : "px-4 py-2 whitespace-nowrap text-sm text-gray-500"}>
                                 {
-                                    key === 'name' ? getPersonName(entry['maintenance_person_id'] || entry['fueling_person_id'] || entry['driver_id']) : key === 'role' ? getRole(entry) : key === 'contact info' ? getPersonNumber(entry['maintenance_person_id'] || entry['fueling_person_id'] || entry['driver_id']) : entry[key]
+                                    key === 'name' ? getPersonName(entry['maintenance_person_id'] || entry['fueling_person_id'] || entry['driver_id'] || entry['id']) : key === 'role' ? getRole(entry) : key === 'contact info' ? getPersonNumber(entry['maintenance_person_id'] || entry['fueling_person_id'] || entry['driver_id'] || entry['id']) 
+                                    : key === 'driver' ? getDriverName(entry['id']): key === 'car' ? entry['make'] + ' ' + entry['model'] : key === 'car number' ? getCarNumber(entry['vehicle_id']) : entry[key]
                                 }
                             </td>
                         ))}
