@@ -1,63 +1,44 @@
+'use client'
 import Table from "./Table"
+import { useState, useEffect } from "react";
 export default function Tasks(){
-    const tasks = [
-        {
-            id: 1,
-            name: "Task 1",
-            role: "Role 1",
-            contact: "+777777777",
-            status: "In progress",
-        },
-        {
-            id: 2,
-            name: "Task 2",
-            role: "Role 2",
-            contact: "+777777777",
-            status: "In progress",
-        },
-        {
-            id: 3,
-            name: "Task 3",
-            role: "Role 3",
-            contact: "+777777777",
-            status: "In progress",
-        },
-        {
-            id: 4,
-            name: "Task 4",
-            role: "Role 4",
-            contact: "+777777777",
-            status: "In progress",
-        },
-        {
-            id: 5,
-            name: "Task 5",
-            role: "Role 5",
-            contact: "+777777777",
-            status: "In progress",
-        },
-        {
-            id: 6,
-            name: "Task 6",
-            role: "Role 6",
-            contact: "+777777777",
-            status: "In progress",
-        },
-        {
-            id: 7,
-            name: "Task 7",
-            role: "Role 7",
-            contact: "+777777777",
-            status: "In progress",
-        },
-    ]
-    const columns = [
+    const [tasks, setTasks] = useState([]);
+    const [drivers, setDrivers] = useState([]);
+    const [vehicles, setVehicles] = useState([]);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:4000/api/maintenance_task/index')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            setTasks(data.data);
+        }).then(() => {
+            fetch('http://127.0.0.1:4000/api/driver/index')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setDrivers(data.data);
+            }).then(() => {
+                fetch('http://127.0.0.1:4000/api/vehicle/index')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    setVehicles(data.data);
+                });
+            });
+        });
+    }, []);
+
+    console.log(tasks)
+
+    const columns = tasks.length > 0 ? [
         'id',
         'name',
         'role',
         'contact info',
         'status',
-    ]
+    ] : [];
+
     return (
         <div className="flex-1 ml-4 bg-gray-100">
             {/* Action Buttons */}
@@ -66,7 +47,8 @@ export default function Tasks(){
                 + Add Task
                 </button>
             </div>
-            <Table columns={columns} entries={tasks}></Table>
+            {console.log('tasks' + tasks)}
+            {tasks ? <Table columns={columns} entries={tasks} people={drivers}></Table> : <p>Loading...</p>}
         </div>
     )
 }
