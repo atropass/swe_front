@@ -1,4 +1,19 @@
-export default function Table({columns, entries}){
+export default function Table({columns, entries, people = []}){
+    const getPersonName = (id) => {
+        const driver = people.find(driver => driver.id === id);
+        console.log(driver)
+        return driver ? driver.name + ' ' + driver.surname : '';
+    }
+
+    const getPersonNumber = (id) => {
+        const driver = people.find(driver => driver.id === id);
+        console.log(driver)
+        return driver ? driver.phone_number : '';
+    }
+
+    const getRole = (entry) => {
+        return entry['maintenance_person_id'] ? 'Maintenance' : entry['route_information'] ? 'Driving' : 'Fueling'
+    }
     return (
         <div className="container mx-auto mt-4">
             <div className="overflow-x-auto">
@@ -15,9 +30,11 @@ export default function Table({columns, entries}){
                 <tbody className="bg-white">
                     {entries.map((entry, index) => (
                     <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                        {Object.keys(entry).map((key, index) => (
+                        {columns.map((key, index) => (
                             <td key={index} className={key === "status" ? entry[key] === "In progress" ? "px-4 py-2 whitespace-nowrap text-sm text-yellow-500" : entry[key] === "Done" ? "px-4 py-2 whitespace-nowrap text-sm text-green-500" : "px-4 py-2 whitespace-nowrap text-sm text-red-500" : "px-4 py-2 whitespace-nowrap text-sm text-gray-500"}>
-                                {entry[key]}
+                                {
+                                    key === 'name' ? getPersonName(entry['driver_id'] || entry['fueling_person_id'] || entry['maintenance_person_id']) : key === 'role' ? getRole(entry) : key === 'contact info' ? getPersonNumber(entry['driver_id'] || entry['fueling_person_id'] || entry['maintenance_person_id']) : entry[key]
+                                }
                             </td>
                         ))}
                         <td className="px-4 py-2 whitespace-nowrap text-sm font-medium">
