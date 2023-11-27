@@ -4,9 +4,11 @@ import React, { useState } from 'react';
 import Header from '../../../components/HeaderDriver'; // Adjust the import path as needed
 import MyHistory from '../../../components/DriverHistory'; // Adjust the import path as needed
 import MyTasks from '../../../components/DriverTasks'; // Adjust the import path as needed
+import { LoadScript } from '@react-google-maps/api';
 
 const Services = () => {
   const [activeService, setActiveService] = useState('history'); // 'history' or 'tasks'
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
     <>
@@ -41,7 +43,9 @@ const Services = () => {
           </div>
           
           {/* Dynamic Component */}
-          {activeService === 'history' ? <MyHistory /> : <MyTasks />}
+          <LoadScript googleMapsApiKey={apiKey}>
+            {activeService === 'history' ? <MyHistory /> : <MyTasks />}
+          </LoadScript>
         </div>
       </div>
     </>
