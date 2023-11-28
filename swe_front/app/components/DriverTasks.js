@@ -7,12 +7,21 @@ import { LoadScript } from '@react-google-maps/api';
 
 const MyTasks = () => {
   const [map, setMap] = useState(false);
+  const [mapKey, setMapKey] = useState(0);
   const overlayRef = useRef(null);
   const [tasks, setTasks] = useState([]);
   const id = "70ca7346-ec8c-4220-8774-3320b3b82bd3";
   const [vehicles, setVehicles] = useState([]);
   const [history, setHistory] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
+  const [destination, setDestination] = useState({
+    latitude: null,
+    longitude: null,
+  });
+  const [prevDestination, setPrevDestination] = useState({
+    latitude: null,
+    longitude: null,
+  });
 
   useEffect(() => {
     fetch('http://127.0.0.1:4000/api/driver_task/index')
@@ -111,6 +120,23 @@ const MyTasks = () => {
     }
   };
 
+  const updateDestination = (e) => {
+    // Validate if the entered values are valid numbers before updating the state
+    if (!isNaN(destination.latitude) && !isNaN(destination.longitude)) {
+      setDestination({
+        ...destination,
+        [e.target.name]: parseFloat(e.target.value),
+      })
+    } else {
+      alert('Please enter valid latitude and longitude.');
+    }
+  };
+
+  const submitDestination = () => {
+    setMap(true);
+    setMapKey((prevKey) => prevKey + 1);
+  }
+
   return (
     <>
       <div className="container mx-auto mt-10">
@@ -154,9 +180,50 @@ const MyTasks = () => {
       <div>
         {map ? (
           <div >
-            <div ref={overlayRef} className=' absolute top-0 left-0 h-screen w-screen flex justify center align center backdrop-blur-md'></div>
-            <div className='absolute w-[750px] top-1/2 left-auto'>
-              <MapContainer vehicles={[selectedCar]} />
+            <div ref={overlayRef} className=' fixed inset-0 top-0 left-0 h-screen w-screen flex justify center align center backdrop-blur-md'></div>
+            <div className='absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 p-10 bg-white shadow overflow-hidden sm:rounded-lg flex'>
+              <div className='min-w-[750px]'>
+                <MapContainer vehicles={[selectedCar]} destination={destination} mapKey={mapKey} setMapKey={setMapKey} />
+              </div>
+              <div className='flex flex-col ml-8'>
+                <h2 className="text-2xl font-bold mb-4">Destination</h2>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="latitude">
+                    Latitude
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="latitude"
+                    type="text"
+                    placeholder="Enter destination latitude"
+                    onChange={(e) => 
+                      {
+                        setPrevDestination(destination);
+                        setDestination({ ...destination, latitude: parseFloat(e.target.value) })}
+                      }
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="longitude">
+                    Longitude
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="longitude"
+                    type="text"
+                    placeholder="Enter destination longitude"
+                    onChange={(e) => 
+                      {
+                        setPrevDestination(destination);
+                        setDestination({ ...destination, longitude: parseFloat(e.target.value) })}
+                      }
+                  />
+                  <button
+                    className="mt-4 py-2 px-4 rounded bg-blue-500 hover:bg-blue-600 text-white"
+                    onClick={submitDestination}
+                  >Update</button>
+                </div>
+              </div>
             </div>
           </div>
         ) : null}

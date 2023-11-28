@@ -1,11 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PhotoUploadModal from './PhotoUploadModal'; // Make sure this import path is correct
 
 const FuelerTasks= () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const [tasks, setTasks] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  const [history, setHistory] = useState([]);
+  const id = "12c55df3-c1ac-4e66-8bcf-bdc241cf9e3d"
 
-  const tasks = [
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const response = await fetch('http://127.0.0.1:4000/api/fueling_task/index');
+      const data = await response.json();
+      setTasks(data.data);
+    };
+    const fetchVehicles = async () => {
+      const response = await fetch('http://127.0.0.1:4000/api/vehicle/index');
+      const data = await response.json();
+      setVehicles(data.data);
+    }
+
+    fetchTasks();
+    fetchVehicles();
+  }, [])
+
+  useEffect(() => {
+    if (tasks.length > 0) {
+      const filteredTasks = tasks.filter((task) => task.fueling_person_id === id);
+      setHistory(filteredTasks);
+      console.log(filteredTasks);
+    }
+  }, [tasks, id]);
+
+  const getVehicleData = (id) => {
+    console.log(vehicles);
+    let vehicle = vehicles.find((vehicle) => vehicle.id === id);
+    return vehicle;
+  }
+
+  const task = [
     {
         id: '000001',
         taskNo: '000001',
@@ -44,54 +78,60 @@ const FuelerTasks= () => {
           </div>
           <div className="border-t border-gray-200">
             <dl>
-              {tasks.map((task) => (
-                <div key={task.id} className="bg-gray-50 px-4 py-5 grid grid-cols-6 gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Task No.
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.taskNo}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Car Gov.Num
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.carGovNum}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Fuel Price
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.fuelPrice}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Date
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.date}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Gas Station
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.gasStation}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Status
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.status}
-                  </dd>
-                  <dd className="text-sm col-span-6">
-                    <button 
-                      onClick={() => openModal(task.id)}
-                      className="text-white bg-blue-500 hover:bg-blue-600 font-bold py-2 px-4 rounded-xl"
-                    >
-                      Add Photo
-                    </button>
-                  </dd>
-                </div>
-              ))}
+              { history.length > 0 ? 
+                history.map((task) => {
+                  const vehicleData = getVehicleData(task.vehicle_id);
+                  return (
+                  <div key={task.id} className="bg-gray-50 px-4 py-5 grid grid-cols-6 gap-4 sm:px-6">
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Task No.
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.id.slice(0, 6)}
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Car Gov.Num
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {vehicleData.license_plate}
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Fuel Quantity
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.fuel_quantity} L
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Date
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.date_and_time.slice(0, 10)}
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Gas Station
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.gas_station_name}
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Status
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.status}
+                    </dd>
+                    <dd className="text-sm col-span-6">
+                      <button 
+                        onClick={() => openModal(task.id)}
+                        className="text-white bg-blue-500 hover:bg-blue-600 font-bold py-2 px-4 rounded-xl"
+                      >
+                        Add Photo
+                      </button>
+                    </dd>
+                  </div>
+                )}) : (
+                  <p>Loading...</p>
+                )
+              }
             </dl>
           </div>
         </div>
