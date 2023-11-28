@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import PhotoUploadModal from './PhotoUploadModal'; // Make sure this import path is correct
 
@@ -39,27 +40,6 @@ const FuelerTasks= () => {
     return vehicle;
   }
 
-  const task = [
-    {
-        id: '000001',
-        taskNo: '000001',
-        carGovNum: '131ss07',
-        fuelPrice: '2600KZT (10ltr)',
-        date: '12.02.23',
-        gasStation: 'QazMunaiGaz',
-        status: 'In progress',
-      },
-      {
-        id: '000002',
-        taskNo: '000002',
-        carGovNum: '131ss02',
-        fuelPrice: '2200KZT (10ltr)',
-        date: '22.02.23',
-        gasStation: 'DazMunaiGaz',
-        status: 'Dn progress',
-      },
-    // Add more tasks here...
-  ];
 
   const openModal = (taskId) => {
     setSelectedTaskId(taskId);
@@ -81,7 +61,7 @@ const FuelerTasks= () => {
               { history.length > 0 ? 
                 history.map((task) => {
                   const vehicleData = getVehicleData(task.vehicle_id);
-                  return (
+                  return vehicleData ? (
                   <div key={task.id} className="bg-gray-50 px-4 py-5 grid grid-cols-6 gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500 col-span-1">
                       Task No.
@@ -128,7 +108,7 @@ const FuelerTasks= () => {
                       </button>
                     </dd>
                   </div>
-                )}) : (
+                ) : (<p>Loading...</p>)}) : (
                   <p>Loading...</p>
                 )
               }

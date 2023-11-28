@@ -1,28 +1,49 @@
-import React, { useState } from 'react';
+'use client'
+import React, { useState, useEffect } from 'react';
 
 const MaintenanceTasks= () => {
+  const [tasks, setTasks] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  const [history, setHistory] = useState([]);
+  const id = "e940ab34-53a2-493a-8873-eb508ec1eb2c"
 
-  const tasks = [
-    {
-        id: '000001',
-        taskNo: '000001',
-        carGovNum: '131ss07',
-        fuelPrice: '2600KZT (10ltr)',
-        date: '12.02.23',
-        gasStation: 'QazMunaiGaz',
-        status: 'In progress',
-      },
-      {
-        id: '000002',
-        taskNo: '000002',
-        carGovNum: '131ss02',
-        fuelPrice: '2200KZT (10ltr)',
-        date: '22.02.23',
-        gasStation: 'DazMunaiGaz',
-        status: 'Dn progress',
-      },
+  useEffect(() => {
+    fetch('http://127.0.0.1:4000/api/maintenance_task/index')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTasks(data.data);
+      });
+    fetch('http://127.0.0.1:4000/api/vehicle/index')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setVehicles(data.data);
+      });
+  }, []);
 
-  ];
+  useEffect(() => {
+    if (tasks.length > 0) {
+      const filteredTasks = tasks.filter((task) => task.maintenance_person_id === id);
+      setHistory(filteredTasks);
+      console.log(filteredTasks);
+    }
+  }, [tasks]);
+
+  const getVehicleData = (vid) => {
+    console.log(vehicles);
+    let vehicle = vehicles.find((vehicle) => vehicle.id === vid);
+    return vehicle;
+  }
+
+  const downloadPdf = async () => {
+    const response = await fetch('/api/generate-pdf');
+    const blob = await response.blob();
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'example.pdf';
+    link.click();
+  };
 
   return (
     <>
@@ -35,53 +56,61 @@ const MaintenanceTasks= () => {
           </div>
           <div className="border-t border-gray-200">
             <dl>
-              {tasks.map((task) => (
-                <div key={task.id} className="bg-gray-50 px-4 py-5 grid grid-cols-6 gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Task No.
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.taskNo}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Car Gov.Num
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.carGovNum}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Fuel Price
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.fuelPrice}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Date
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.date}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Gas Station
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.gasStation}
-                  </dd>
-                  <dt className="text-sm font-medium text-gray-500 col-span-1">
-                    Status
-                  </dt>
-                  <dd className="text-sm text-gray-900 col-span-1">
-                    {task.status}
-                  </dd>
-                  <dd className="text-sm col-span-6">
-                  <button 
-                      className="text-white bg-blue-500 hover:bg-blue-600 font-bold py-2 px-4 rounded-xl"
-                    >
-                      See Report
-                    </button>
-                  </dd>
-                </div>
-              ))}
+              { history.length > 0 &&
+                history.map((task) => {
+                  const vehicleData = getVehicleData(task.vehicle_id);
+                  console.log(vehicleData)
+                  return vehicleData ? (
+                  <div key={task.id} className="bg-gray-50 px-4 py-5 grid grid-cols-6 gap-4 sm:px-6">
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Task No.
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.id.slice(0, 6)}
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Car Gov.Num
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {vehicleData.license_plate}
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Maintenance Cost
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.maintenance_cost} $
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Date
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.scheduled_date.slice(0, 10)}
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Task Description
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.description}
+                    </dd>
+                    <dt className="text-sm font-medium text-gray-500 col-span-1">
+                      Status
+                    </dt>
+                    <dd className="text-sm text-gray-900 col-span-1">
+                      {task.status}
+                    </dd>
+                    <dd className="text-sm col-span-6">
+
+                    <div>
+                      <button
+                          className="text-white bg-blue-500 hover:bg-blue-600 font-bold py-2 px-4 rounded-xl"
+                          onClick={downloadPdf}
+                        >
+                          See Report
+                        </button>
+                    </div>
+                    </dd>
+                  </div>
+                ) : <p>Loading...</p>})}
             </dl>
           </div>
         </div>

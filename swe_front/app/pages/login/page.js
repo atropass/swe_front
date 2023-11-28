@@ -1,6 +1,22 @@
+'use client'
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    role: '',
+  });
+  const router = useRouter();
+
+  const handleFormChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  }
   return (
     <div className="bg-white min-h-screen flex flex-col justify-center items-center">
       <Head>
@@ -38,17 +54,19 @@ export default function Login() {
           <select
             id="role"
             name="role"
+            onChange={handleFormChange}
             className=" text-black block w-full pl-3 pr-10 py-2 mt-1 mb-6 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           >
-            <option>Admin</option>
-            <option>Driver</option>
-            <option>Fueling person</option>
-            <option>Maintenance person</option>
+            <option id='admin'>admin</option>
+            <option id='driver'>driver</option>
+            <option id='fueling'>fueler</option>
+            <option id='maintenance'>maintenance</option>
           </select>
 
           <button
-            type="submit"
+            type="button"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            onClick={() => formData.role == 'admin' ? router.push(`/pages/admin`) : router.push(`/pages/${formData.role}/services`)}
           >
             Sign in
           </button>
